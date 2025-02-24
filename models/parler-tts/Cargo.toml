@@ -1,0 +1,59 @@
+[package]
+name = "parler-tts"
+version = "0.1.0"
+edition = "2021"
+description = "A simple interface for Parler speech-to-text models in Rust."
+license = "MIT/Apache-2.0"
+repository = "https://github.com/floneum/floneum"
+authors = [
+    "Evan Almloff <evanalmloff@gmail.com>",
+    "Miles Murgaw <milesmurgaw@gmail.com>",
+]
+keywords = ["ai", "parler", "stt", "speech"]
+
+[dependencies]
+kalosm-common.workspace = true
+kalosm-model-types.workspace = true
+
+candle-core.workspace = true
+candle-nn.workspace = true
+candle-transformers.workspace = true
+tokenizers.workspace = true
+thiserror.workspace = true
+
+serde_json = "1.0.107"
+futures-channel = "0.3.31"
+rand = "0.9.0"
+
+hound = { version = "3.5.1", optional = true }
+accelerate-src = { version = "0.3.2", optional = true }
+intel-mkl-src = { version = "0.8.1", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.43.0", features = ["full"] }
+
+[features]
+wav = ["dep:hound"]
+cuda = ["candle-core/cuda", "candle-nn/cuda", "candle-transformers/cuda"]
+cudnn = ["candle-core/cudnn"]
+metal = [
+    "candle-core/metal",
+    "candle-nn/metal",
+    "candle-transformers/metal",
+    "kalosm-common/metal",
+]
+accelerate = [
+    "dep:accelerate-src",
+    "candle-core/accelerate",
+    "candle-nn/accelerate",
+    "candle-transformers/accelerate",
+]
+mkl = [
+    "dep:intel-mkl-src",
+    "candle-core/mkl",
+    "candle-nn/mkl",
+    "candle-transformers/mkl",
+]
+
+[package.metadata.docs.rs]
+features = ["wav"]

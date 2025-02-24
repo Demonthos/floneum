@@ -25,7 +25,9 @@ members = [
     "interfaces/kalosm-learning",
     "interfaces/kalosm-learning-macro",
     "interfaces/kalosm-parse-macro",
-    "interfaces/kalosm-common", "interfaces/kalosm-model-types",
+    "interfaces/kalosm-common",
+    "interfaces/kalosm-model-types",
+    "models/parler-tts",
 ]
 
 [workspace.dependencies]
